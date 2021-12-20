@@ -1,49 +1,8 @@
-"use strict";
+import React from "react";
+import PropTypes from "prop-types";
+import { Linking, Platform, Text, StyleSheet, Alert } from "react-native";
 
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports["default"] = void 0;
-
-var _react = _interopRequireDefault(require("react"));
-
-var _propTypes = _interopRequireDefault(require("prop-types"));
-
-var _reactNative = require("react-native");
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
-
-function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
-
-function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
-
-function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter)) return Array.from(iter); }
-
-function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
-
-function _objectWithoutProperties(source, excluded) { if (source == null) return {}; var target = _objectWithoutPropertiesLoose(source, excluded); var key, i; if (Object.getOwnPropertySymbols) { var sourceSymbolKeys = Object.getOwnPropertySymbols(source); for (i = 0; i < sourceSymbolKeys.length; i++) { key = sourceSymbolKeys[i]; if (excluded.indexOf(key) >= 0) continue; if (!Object.prototype.propertyIsEnumerable.call(source, key)) continue; target[key] = source[key]; } } return target; }
-
-function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } return target; }
-
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
-
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
-
-function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
-
-function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
-
-function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
-
-function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return; var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
-
-function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
-
-var styles = _reactNative.StyleSheet.create({
+const styles = StyleSheet.create({
   linkStyle: {
     color: "#2980b9"
   }
@@ -53,166 +12,159 @@ const PATTERN_HASHTAG = /(^|\s)(#[a-z\d-_]+|[#＃][a-z\d-_\u00c0-\u00d6\u00d8-\u
 const PATTERN_MENTION = /(^|\s)(@[a-z\d-_]+|[@＠][a-z\d-_\u00c0-\u00d6\u00d8-\u00f6\u00f8-\u00ff\u0100-\u024f\u0253-\u0254\u0256-\u0257\u0300-\u036f\u1e00-\u1eff\u0400-\u04ff\u0500-\u0527\u2de0-\u2dff\ua640-\ua69f\u0591-\u05bf\u05c1-\u05c2\u05c4-\u05c5\u05d0-\u05ea\u05f0-\u05f4\ufb12-\ufb28\ufb2a-\ufb36\ufb38-\ufb3c\ufb40-\ufb41\ufb43-\ufb44\ufb46-\ufb4f\u0610-\u061a\u0620-\u065f\u066e-\u06d3\u06d5-\u06dc\u06de-\u06e8\u06ea-\u06ef\u06fa-\u06fc\u0750-\u077f\u08a2-\u08ac\u08e4-\u08fe\ufb50-\ufbb1\ufbd3-\ufd3d\ufd50-\ufd8f\ufd92-\ufdc7\ufdf0-\ufdfb\ufe70-\ufe74\ufe76-\ufefc\u200c-\u200c\u0e01-\u0e3a\u0e40-\u0e4e\u1100-\u11ff\u3130-\u3185\ua960-\ua97f\uac00-\ud7af\ud7b0-\ud7ff\uffa1-\uffdc\u30a1-\u30fa\u30fc-\u30fe\uff66-\uff9f\uff10-\uff19\uff21-\uff3a\uff41-\uff5a\u3041-\u3096\u3099-\u309e\u3400-\u4dbf\u4e00-\u9fff\u20000-\u2a6df\u2a700-\u2b73f\u2b740-\u2b81f\u2f800-\u2fa1f]+)/gi;
 const PATTERN_EMAIL = /(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f]))\])/gi;///([a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.[a-zA-Z0-9_-]+)/gi;
 const PATTERN_URL = /(https?:\/\/(?:www\.|(?!www))[-_.!~*\'()a-zA-Z0-9;\/?:\@&=+\$,%#\u3000-\u30FE\u4E00-\u9FA0\uFF01-\uFFE3][-_.!~*\'()a-zA-Z0-9;\/?:\@&=+\$,%#\u3000-\u30FE\u4E00-\u9FA0\uFF01-\uFFE3-]+[-_.!~*\'()a-zA-Z0-9;\/?:\@&=+\$,%#\u3000-\u30FE\u4E00-\u9FA0\uFF01-\uFFE3]\.[^\s、。>)]{2,}|www\.[-_.!~*\'()a-zA-Z0-9;\/?:\@&=+\$,%#\u3000-\u30FE\u4E00-\u9FA0\uFF01-\uFFE3][-_.!~*\'()a-zA-Z0-9;\/?:\@&=+\$,%#\u3000-\u30FE\u4E00-\u9FA0\uFF01-\uFFE3-]+[-_.!~*\'()a-zA-Z0-9;\/?:\@&=+\$,%#\u3000-\u30FE\u4E00-\u9FA0\uFF01-\uFFE3]\.[^\s、。>)]{2,}|https?:\/\/(?:www\.|(?!www))[-_.!~*\'()a-zA-Z0-9;\/?:\@&=+\$,%#\u3000-\u30FE\u4E00-\u9FA0\uFF01-\uFFE3]+\.[^\s、。>)]{2,}|www\.[-_.!~*\'()a-zA-Z0-9;\/?:\@&=+\$,%#\u3000-\u30FE\u4E00-\u9FA0\uFF01-\uFFE3]+\.[^\s、。>)]{2,})/gi; // 日本語　/https?:\/\/[-_.!~*\'()a-zA-Z0-9;\/?:\@&=+\$,%#\u3000-\u30FE\u4E00-\u9FA0\uFF01-\uFFE3]+/gi;
-  
-const  matchesWith = function matchesWith(str, pattern) {
-  var match = null;
-  var arr = [];
-
+const matchesWith = (str, pattern) => {
+  let match = null;
+  const arr = [];
   while ((match = pattern.exec(str)) != null) {
     arr.push([match, pattern]);
   }
-
   return arr;
 };
 
-var splitStringByMatches = function splitStringByMatches(str, matches) {
-  var arr = [];
-  var o = 0;
-  matches.forEach(function (_ref) {
-    var _ref2 = _slicedToArray(_ref, 2),
-        match = _ref2[0],
-        pattern = _ref2[1];
+const splitStringByMatches = (str, matches) => {
+  const arr = [];
+  let o = 0;
 
-    var _match = _objectSpread({}, match),
-        index = _match.index;
-
-    var text = match[match.length - 1];
+  matches.forEach(([match, pattern]) => {
+    const { index } = { ...match };
+    const text = match[match.length - 1];
+    console.log(index, text)
     arr.push([str.slice(o, index), null]);
-    if (pattern === PATTERN_HASHTAG || pattern === PATTERN_MENTION ){
-      arr.push([str.slice(index, index + text.length + 1), pattern]);
+   //arr.push([str.slice(index, index + text.length), pattern]);
+   // o = index + text.length;
+    
+    if (pattern === PATTERN_HASHTAG || pattern === PATTERN_MENTION){
+      arr.push([match[1], null]);
+      arr.push([str.slice(index +1, index + text.length + 1), pattern]);
       o = index + text.length + 1;
-    } else { // added by kwata
+    } else {
       arr.push([str.slice(index, index + text.length), pattern]);
       o = index + text.length;
     }
+    
+    
   });
+
   arr.push([str.slice(o, str.length), null]);
-  return arr.filter(function (_ref3) {
-    var _ref4 = _slicedToArray(_ref3, 1),
-        s = _ref4[0];
-
-    return s.length > 0;
-  });
+  return arr.filter(([s]) => s.length > 0);
 };
 
-var TwitterTextView = function TwitterTextView(_ref5) {
-  var _ref6, _onPress, _style;
+const TwitterTextView = ({
+  children = "",
+  extractHashtags,
+  onPressHashtag,
+  hashtagStyle,
+  extractMentions,
+  onPressMention,
+  mentionStyle,
+  extractLinks,
+  onPressLink,
+  linkStyle,
+  extractEmails,
+  onPressEmail,
+  emailStyle,
+  ...extraProps
+}) => {
+  const str = (typeof children === "string" && children) || "";
 
-  var _ref5$children = _ref5.children,
-      children = _ref5$children === void 0 ? "" : _ref5$children,
-      extractHashtags = _ref5.extractHashtags,
-      onPressHashtag = _ref5.onPressHashtag,
-      hashtagStyle = _ref5.hashtagStyle,
-      extractMentions = _ref5.extractMentions,
-      onPressMention = _ref5.onPressMention,
-      mentionStyle = _ref5.mentionStyle,
-      extractLinks = _ref5.extractLinks,
-      onPressLink = _ref5.onPressLink,
-      linkStyle = _ref5.linkStyle,
-      extractEmails = _ref5.extractEmails,
-      onPressEmail = _ref5.onPressEmail,
-      emailStyle = _ref5.emailStyle,
-      extraProps = _objectWithoutProperties(_ref5, ["children", "extractHashtags", "onPressHashtag", "hashtagStyle", "extractMentions", "onPressMention", "mentionStyle", "extractLinks", "onPressLink", "linkStyle", "extractEmails", "onPressEmail", "emailStyle"]);
+  const patterns = [
+    !!extractHashtags && PATTERN_HASHTAG,
+    !!extractMentions && PATTERN_MENTION,
+    !!extractEmails && PATTERN_EMAIL,
+    !!extractLinks && PATTERN_URL
+  ].filter(e => !!e);
 
-  var str = typeof children === "string" && children || "";
-  var patterns = [!!extractHashtags && PATTERN_HASHTAG, !!extractMentions && PATTERN_MENTION, !!extractEmails && PATTERN_EMAIL, !!extractLinks && PATTERN_URL].filter(function (e) {
-    return !!e;
-  });
+  const matches = []
+    .concat(...patterns.map(pattern => matchesWith(str, pattern)))
+    .filter(e => !!e)
+    .sort(([a], [b]) => ({ ...a }.index - { ...b }.index));
 
-  var matches = (_ref6 = []).concat.apply(_ref6, _toConsumableArray(patterns.map(function (pattern) {
-    return matchesWith(str, pattern);
-  }))).filter(function (e) {
-    return !!e;
-  }).sort(function (_ref7, _ref8) {
-    var _ref9 = _slicedToArray(_ref7, 1),
-        a = _ref9[0];
+  const onPress = {
+    [PATTERN_HASHTAG]: onPressHashtag,
+    [PATTERN_MENTION]: onPressMention,
+    [PATTERN_EMAIL]: onPressEmail,
+    [PATTERN_URL]: onPressLink
+  };
+  const style = {
+    [PATTERN_HASHTAG]: hashtagStyle,
+    [PATTERN_MENTION]: mentionStyle,
+    [PATTERN_EMAIL]: emailStyle,
+    [PATTERN_URL]: linkStyle
+  };
 
-    var _ref10 = _slicedToArray(_ref8, 1),
-        b = _ref10[0];
+  return (
+    <Text {...extraProps}>
+      {splitStringByMatches(str, matches).map(([str, pattern], i) => {
 
-    return _objectSpread({}, a).index - _objectSpread({}, b).index;
-  });
-
-  var _onPress2 = (_onPress = {}, _defineProperty(_onPress, PATTERN_HASHTAG, onPressHashtag), _defineProperty(_onPress, PATTERN_MENTION, onPressMention), _defineProperty(_onPress, PATTERN_EMAIL, onPressEmail), _defineProperty(_onPress, PATTERN_URL, onPressLink), _onPress);
-
-  var style = (_style = {}, _defineProperty(_style, PATTERN_HASHTAG, hashtagStyle), _defineProperty(_style, PATTERN_MENTION, mentionStyle), _defineProperty(_style, PATTERN_EMAIL, emailStyle), _defineProperty(_style, PATTERN_URL, linkStyle), _style);
-  return /*#__PURE__*/_react["default"].createElement(_reactNative.Text, extraProps, splitStringByMatches(str, matches).map(function (_ref11, i) {
-    var _ref12 = _slicedToArray(_ref11, 2),
-        str = _ref12[0],
-        pattern = _ref12[1];
-
-    return /*#__PURE__*/_react["default"].createElement(_reactNative.Text, {
-      key: i,
-      style: style[pattern],
-      onPress: function onPress(e) {
-        var handle = _onPress2[pattern];
-
-        if (handle) {
-          return handle(e, str);
-        }
-
-        return undefined;
-      },
-      children: str
-    });
-  }));
+        return (
+          <Text
+            key={i}
+            style={style[pattern]}
+            onPress={(e) => {
+              const handle = onPress[pattern];
+              if (handle) {
+                return handle(e, str);
+              }
+              return undefined;
+            }}
+            children={str}
+          />
+        );
+      })}
+    </Text>
+  );
 };
 
-var textStyleProps = _propTypes["default"].oneOfType([_propTypes["default"].shape({}), _propTypes["default"].number]);
+const textStyleProps = PropTypes.oneOfType([
+  PropTypes.shape({}),
+  PropTypes.number
+]);
 
 TwitterTextView.propTypes = {
-  children: _propTypes["default"].string,
-  extractHashtags: _propTypes["default"].bool,
-  onPressHashtag: _propTypes["default"].func,
+  children: PropTypes.string,
+  extractHashtags: PropTypes.bool,
+  onPressHashtag: PropTypes.func,
   hashtagStyle: textStyleProps,
-  extractMentions: _propTypes["default"].bool,
-  onPressMention: _propTypes["default"].func,
+  extractMentions: PropTypes.bool,
+  onPressMention: PropTypes.func,
   mentionStyle: textStyleProps,
-  extractLinks: _propTypes["default"].bool,
-  onPressLink: _propTypes["default"].func,
+  extractLinks: PropTypes.bool,
+  onPressLink: PropTypes.func,
   linkStyle: textStyleProps
 };
+
 TwitterTextView.defaultProps = {
   children: "",
   extractHashtags: true,
-  onPressHashtag: function onPressHashtag(e, hashtag) {
-    var msg = "Hashtag: \"".concat(hashtag, "\"");
-
-    if (_reactNative.Platform.OS !== "web") {
-      _reactNative.Alert.alert(msg);
+  onPressHashtag: (e, hashtag) => {
+    const msg = `Hashtag: "${hashtag}"`;
+    if (Platform.OS !== "web") {
+      Alert.alert(msg);
     } else {
       console.log(msg);
     }
   },
   hashtagStyle: styles.linkStyle,
   extractMentions: true,
-  onPressMention: function onPressMention(e, mention) {
-    var msg = "Mention: \"".concat(mention, "\"");
-
-    if (_reactNative.Platform.OS !== "web") {
-      _reactNative.Alert.alert(msg);
+  onPressMention: (e, mention) => {
+    const msg = `Mention: "${mention}"`;
+    if (Platform.OS !== "web") {
+      Alert.alert(msg);
     } else {
       console.log(msg);
     }
   },
   mentionStyle: styles.linkStyle,
   extractLinks: true,
-  onPressLink: function onPressLink(e, url) {
-
-    
-    return _reactNative.Linking.canOpenURL(url).then(function (canOpen) {
-      return !!canOpen && _reactNative.Linking.openURL(url);
-    });
-    
-  },
+  onPressLink: (e, url) =>
+    Linking.canOpenURL(url).then(canOpen => !!canOpen && Linking.openURL(url)),
   linkStyle: styles.linkStyle,
   extractEmails: true,
-  onPressEmail: function onPressEmail(e, url) {
-    return _reactNative.Linking.canOpenURL("mailto:".concat(url)).then(function (canOpen) {
-      return !!canOpen && _reactNative.Linking.openURL("mailto:".concat(url));
-    });
-  },
+  onPressEmail: (e, url) =>
+    Linking.canOpenURL(`mailto:${url}`).then(
+      canOpen => !!canOpen && Linking.openURL(`mailto:${url}`)
+    ),
   emailStyle: styles.linkStyle
 };
-var _default = TwitterTextView;
-exports["default"] = _default;
+
+export default TwitterTextView;
