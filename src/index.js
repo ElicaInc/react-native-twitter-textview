@@ -1,4 +1,3 @@
-
 import React from "react";
 import PropTypes from "prop-types";
 import { Linking, Platform, Text, StyleSheet, Alert } from "react-native";
@@ -40,7 +39,26 @@ const splitStringByMatches = (str, matches) => {
     } else {
       arr.push([str.slice(index, index + text.length), pattern]);
       o = index + text.length;
-    }    
+    }
+   /*
+    if (pattern === PATTERN_HASHTAG || pattern === PATTERN_MENTION){
+      if (match[1] === " " || match[1] === "　"){
+      arr.push([match[1], null]);
+      arr.push([str.slice(index +1, index + text.length + 1), pattern]);
+      o = index + text.length + 1;
+      } else {
+        arr.push([str.slice(index, index + text.length), pattern]);
+      o = index + text.length;
+      }
+    } else {
+      arr.push([str.slice(index, index + text.length), pattern]);
+      o = index + text.length;
+    }
+    */
+    
+
+    
+    
   });
 
   arr.push([str.slice(o, str.length), null]);
