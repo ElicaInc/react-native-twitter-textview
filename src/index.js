@@ -27,37 +27,10 @@ const splitStringByMatches = (str, matches) => {
 
   matches.forEach(([match, pattern]) => {
     const { index } = { ...match };
-    const text = match[match.length - 1];
     arr.push([str.slice(o, index), null]);
-   //arr.push([str.slice(index, index + text.length), pattern]);
-   // o = index + text.length;
-   if (match[1] === " " || match[1] === "　"){
     arr.push([match[1], null]);
-    arr.push([str.slice(index +1, index + text.length + 1), pattern]);
-    o = index + text.length + 1;
-    } else {
-      arr.push([str.slice(index, index + text.length), pattern]);
-      o = index + text.length;
-    }
-   /*
-    if (pattern === PATTERN_HASHTAG || pattern === PATTERN_MENTION){
-      if (match[1] === " " || match[1] === "　"){
-      arr.push([match[1], null]);
-      arr.push([str.slice(index +1, index + text.length + 1), pattern]);
-      o = index + text.length + 1;
-      } else {
-        arr.push([str.slice(index, index + text.length), pattern]);
-      o = index + text.length;
-      }
-    } else {
-      arr.push([str.slice(index, index + text.length), pattern]);
-      o = index + text.length;
-    }
-    */
-    
-
-    
-    
+    arr.push([match[2], pattern]);
+    o = index + match[0].length;
   });
 
   arr.push([str.slice(o, str.length), null]);
