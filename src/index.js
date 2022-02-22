@@ -2,7 +2,6 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Linking, Platform, Text, StyleSheet, Alert, TouchableHighlight } from "react-native";
 import unionBy from "lodash/unionBy";
-
 const styles = StyleSheet.create({
   linkStyle: {
     color: "#2980b9"
